@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Iluminação & Acabamentos · Showroom</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --offwhite: #F4EFE6;
+    --bege: #E5DBC7;
+    --bege-2: #D9CDB8;
+    --preto: #0F0E0D;
+    --cinza: #4A463F;
+    --cinza-2: #8A8378;
+    --dourado: #B89968;
+    --dourado-claro: #D4B98A;
+    --line: rgba(15,14,13,0.12);
+    --line-soft: rgba(15,14,13,0.07);
+  }
+
+  *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html, body{ margin:0; padding:0; background:var(--offwhite); color:var(--preto); font-family:'Manrope', system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  body{ font-feature-settings: "ss01","cv11"; }
+
+  /* ---------- Layout shell ---------- */
+  .page{ min-height: 100dvh; display:flex; flex-direction:column; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    width:100%;
+    height: 100svh;
+    min-height: 620px;
+    max-height: 880px;
+    overflow:hidden;
+    background:#0a0908;
+    isolation:isolate;
+  }
+  @media (min-width: 900px){
+    .hero{ height: 92vh; max-height: 940px; }
+  }
+
+  .slides{ position:absolute; inset:0; }
+  .slide{
+    position:absolute; inset:0;
+    opacity:0;
+    transition: opacity 2.2s ease-in-out;
+    will-change: opacity;
+  }
+  .slide.active{ opacity:1; }
+  .slide .bg{
+    position:absolute; inset:0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.08);
+    transition: transform 9s ease-out;
+    will-change: transform;
+  }
+  .slide.active .bg{
+    transform: scale(1.18) translate3d(-1.2%, -0.8%, 0); /* Ken Burns */
+  }
+
+  /* Vinheta + véu bege para legibilidade */
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 30%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.55) 100%),
+      linear-gradient(180deg, rgba(15,14,13,0.45) 0%, rgba(15,14,13,0.15) 35%, rgba(15,14,13,0.55) 100%);
+  }
+  .hero-grain{
+    position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+  }
+
+  /* Top bar inside hero */
+  .topbar{
+    position:absolute; top:0; left:0; right:0; z-index:5;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 26px;
+    color: #F4EFE6;
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  }
+  .topbar .mark{ display:flex; align-items:center; gap:10px; }
+  .topbar .dot{ width:6px; height:6px; border-radius:50%; background:var(--dourado-claro); box-shadow:0 0 12px var(--dourado-claro); }
+  .topbar .right{ opacity:.7; }
+
+  /* Hero content */
+  .hero-inner{
+    position:absolute; inset:0; z-index:4;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding: 0 26px 56px;
+    color:#F4EFE6;
+  }
+  @media (min-width: 900px){
+    .hero-inner{ padding: 0 64px 88px; }
+  }
+
+  .eyebrow{
+    font-family:'Manrope'; font-weight:500;
+    font-size:11px; letter-spacing:.32em; text-transform:uppercase;
+    color: var(--dourado-claro);
+    display:flex; align-items:center; gap:14px;
+  }
+  .eyebrow .ln{ height:1px; width:42px; background:var(--dourado-claro); opacity:.7; display:inline-block; }
+
+  h1.hero-title{
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(42px, 9vw, 96px);
+    line-height: 1.04;
+    letter-spacing: -0.018em;
+    margin: 18px 0 0;
+    text-wrap: balance;
+  }
+  h1.hero-title em{
+    font-style: italic;
+    font-weight: 400;
+    color: var(--dourado-claro);
+  }
+
+  .hero-sub{
+    margin-top: 18px;
+    max-width: 560px;
+    font-family:'Manrope'; font-weight:300;
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.6;
+    color: rgba(244,239,230,0.86);
+    text-wrap: pretty;
+  }
+  .hero-tagline{
+    margin-top: 10px;
+    font-family:'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(15px, 1.7vw, 19px);
+    color: rgba(244,239,230,0.72);
+  }
+
+  /* Carousel pagination */
+  .pager{
+    position:absolute; right:26px; bottom:24px; z-index:5;
+    display:flex; gap:8px; align-items:center;
+  }
+  @media (min-width: 900px){ .pager{ right:64px; bottom:36px; } }
+  .pager button{
+    appearance:none; background:transparent; border:0; padding:6px 4px; cursor:pointer;
+  }
+  .pager .bar{
+    display:block; width:28px; height:1px; background: rgba(244,239,230,0.35);
+    transition: background .4s ease, width .4s ease;
+  }
+  .pager button[aria-current="true"] .bar{ background: var(--dourado-claro); width:44px; }
+
+  /* Scroll cue */
+  .cue{
+    position:absolute; left:26px; bottom:24px; z-index:5;
+    font-size:10px; letter-spacing:.32em; text-transform:uppercase;
+    color: rgba(244,239,230,0.6);
+    display:flex; align-items:center; gap:10px;
+  }
+  @media (min-width: 900px){ .cue{ left:64px; bottom:36px; } }
+  .cue .ln{ width: 28px; height:1px; background: rgba(244,239,230,0.4); display:inline-block; }
+
+  /* ---------- LINKS SECTION ---------- */
+  .links-wrap{
+    width:100%; max-width: 560px; margin: 0 auto;
+    padding: 56px 22px 24px;
+  }
+  @media (min-width: 900px){
+    .links-wrap{ max-width: 620px; padding: 88px 24px 32px; }
+  }
+
+  .links-head{ text-align:center; margin-bottom: 36px; }
+  .links-eye{
+    font-size:10px; letter-spacing:.32em; text-transform:uppercase;
+    color: var(--cinza); display:inline-flex; align-items:center; gap:12px;
+  }
+  .links-eye .ln{ width:24px; height:1px; background: var(--cinza); opacity:.5; display:inline-block; }
+  .links-title{
+    font-family:'EB Garamond', serif; font-weight:400;
+    font-size: clamp(24px, 3.2vw, 32px);
+    margin: 14px 0 0; letter-spacing:-0.015em;
+  }
+  .links-title em{ font-style:italic; color: var(--dourado); font-weight:400; }
+
+  .btn{
+    --bg: var(--offwhite);
+    --fg: var(--preto);
+    --bd: var(--line);
+    position:relative;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px;
+    width:100%;
+    padding: 18px 22px;
+    margin: 10px 0;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--bd);
+    border-radius: 14px;
+    font-family:'Manrope'; font-weight:500;
+    font-size: 15px; letter-spacing: .005em;
+    text-decoration:none;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .3s, background .3s, color .3s;
+    overflow:hidden;
+    isolation: isolate;
+  }
+  .btn:hover{ transform: translateY(-1px); border-color: rgba(15,14,13,0.28); }
+  .btn .label{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .btn .meta{
+    font-family:'Manrope'; font-weight:400; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color: var(--cinza-2);
+  }
+  .btn .arrow{
+    flex:0 0 auto; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line);
+    display:grid; place-items:center; color: var(--cinza);
+    transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .3s, background .3s, color .3s;
+  }
+  .btn:hover .arrow{ transform: translateX(3px); border-color: var(--preto); color: var(--preto); }
+  .btn .arrow svg{ width:12px; height:12px; }
+
+  /* Primary CTA */
+  .btn.primary{
+    --bg: var(--preto);
+    --fg: #F4EFE6;
+    --bd: var(--preto);
+    padding: 22px 24px;
+    border-radius: 16px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 18px 40px -22px rgba(15,14,13,0.55);
+  }
+  .btn.primary .meta{ color: var(--dourado-claro); }
+  .btn.primary .arrow{ border-color: rgba(244,239,230,0.25); color: #F4EFE6; }
+  .btn.primary:hover .arrow{ border-color: var(--dourado-claro); color: var(--dourado-claro); }
+  .btn.primary .title-line{
+    font-family:'EB Garamond', serif; font-weight:400; font-size: 21px; letter-spacing:-0.005em;
+  }
+  .btn.primary .title-line em{ font-style:italic; color: var(--dourado-claro); font-weight:400; }
+
+  /* Subtle gold hairline under primary */
+  .btn.primary::before{
+    content:""; position:absolute; left:24px; right:24px; bottom:14px; height:1px;
+    background: linear-gradient(90deg, transparent, rgba(212,185,138,0.5), transparent);
+    z-index:0;
+  }
+
+  /* Shine sweep on primary */
+  .btn.primary::after{
+    content:""; position:absolute; top:0; bottom:0; width:60%;
+    left:-70%;
+    background: linear-gradient(105deg,
+      transparent 20%,
+      rgba(212,185,138,0.0) 35%,
+      rgba(212,185,138,0.22) 50%,
+      rgba(255,239,205,0.08) 60%,
+      transparent 75%);
+    transform: skewX(-12deg);
+    animation: shine 6.5s ease-in-out 2.2s infinite;
+    pointer-events:none; z-index:1;
+  }
+  @keyframes shine{
+    0%   { left:-70%; }
+    35%  { left: 130%; }
+    100% { left: 130%; }
+  }
+
+  /* Secondary highlight: SHOWROOM card-button */
+  .btn.showcase{
+    --bg: var(--bege);
+    --bd: rgba(184,153,104,0.35);
+    padding: 18px 22px;
+  }
+  .btn.showcase .arrow{ border-color: rgba(184,153,104,0.45); color: var(--cinza); }
+
+  /* Pair of small buttons (Instagram / YouTube) */
+  .social-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .social-row .btn{ margin:0; padding: 16px 18px; font-size: 14px; }
+  .social-row .btn .meta{ display:none; }
+
+  /* ---------- CARDS SECTION ---------- */
+  .cards-wrap{
+    width:100%; max-width: 1180px; margin: 0 auto;
+    padding: 48px 22px 24px;
+  }
+  @media (min-width: 900px){
+    .cards-wrap{ padding: 96px 40px 40px; }
+  }
+  .cards-head{
+    display:flex; align-items:end; justify-content:space-between; gap: 24px;
+    margin-bottom: 28px; padding: 0 4px;
+  }
+  .cards-head h2{
+    font-family:'EB Garamond', serif; font-weight:400;
+    font-size: clamp(26px, 3.4vw, 38px);
+    margin:0; letter-spacing:-0.015em; text-wrap:balance;
+  }
+  .cards-head h2 em{ font-style:italic; color: var(--dourado); font-weight:400; }
+  .cards-head .kicker{
+    font-size:10px; letter-spacing:.32em; text-transform:uppercase; color: var(--cinza-2);
+  }
+
+  .cards-grid{
+    display:grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px){
+    .cards-grid{ grid-template-columns: 1fr 1fr; gap: 16px; }
+  }
+  @media (min-width: 1024px){
+    .cards-grid{ grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  }
+
+  .card{
+    position:relative; overflow:hidden; border-radius: 18px;
+    aspect-ratio: 4 / 5;
+    background:#1a1815;
+    isolation: isolate;
+    border: 1px solid var(--line-soft);
+  }
+  .card .img{
+    position:absolute; inset:0;
+    background-size: cover; background-position: center;
+    transform: scale(1.04);
+    transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .card:hover .img{ transform: scale(1.1); }
+  .card::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(15,14,13,0) 35%, rgba(15,14,13,0.7) 100%);
+    z-index:1;
+  }
+  .card .card-body{
+    position:absolute; inset:auto 0 0 0; z-index:2;
+    padding: 18px 18px 20px;
+    color: #F4EFE6;
+    display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+  }
+  .card .num{
+    font-family:'EB Garamond', serif; font-style:italic; font-weight:400;
+    font-size: 14px; color: var(--dourado-claro); opacity:.9;
+    letter-spacing:.02em;
+  }
+  .card h3{
+    font-family:'EB Garamond', serif; font-weight:400;
+    font-size: clamp(20px, 2.4vw, 26px);
+    margin: 4px 0 0; letter-spacing:-0.01em;
+    text-wrap: balance;
+  }
+  .card .sub{
+    font-size: 11px; letter-spacing:.22em; text-transform:uppercase;
+    color: rgba(244,239,230,0.7); margin-top:8px;
+  }
+  .card .pluson{
+    flex:0 0 auto; width:36px; height:36px; border-radius:50%;
+    border: 1px solid rgba(244,239,230,0.4);
+    display:grid; place-items:center; color:#F4EFE6;
+    transition: background .3s, color .3s, border-color .3s;
+  }
+  .card:hover .pluson{ background: var(--dourado-claro); border-color: var(--dourado-claro); color: var(--preto); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top: auto;
+    padding: 56px 22px 32px;
+    border-top: 1px solid var(--line-soft);
+    background: var(--offwhite);
+  }
+  .footer-inner{
+    max-width: 1180px; margin: 0 auto;
+    display:flex; flex-direction:column; gap: 28px;
+  }
+  @media (min-width: 800px){
+    .footer-inner{ flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 40px; }
+  }
+  .foot-brand{
+    font-family:'EB Garamond', serif; font-weight:400;
+    font-size: 28px; letter-spacing:-0.015em;
+  }
+  .foot-brand em{ font-style:italic; color: var(--dourado); font-weight:400; }
+  .foot-line{ font-size:12px; color: var(--cinza); margin-top:8px; letter-spacing:.04em; }
+  .foot-meta{
+    display:flex; flex-direction:column; gap:6px;
+    font-size: 11px; letter-spacing:.22em; text-transform:uppercase; color: var(--cinza-2);
+    text-align:left;
+  }
+  @media (min-width:800px){ .foot-meta{ text-align:right; } }
+  .foot-meta a{ color: var(--cinza); text-decoration:none; transition: color .2s; }
+  .foot-meta a:hover{ color: var(--preto); }
+  .foot-rule{
+    margin-top: 28px; padding-top: 18px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 10px; letter-spacing:.28em; text-transform:uppercase; color: var(--cinza-2);
+    display:flex; justify-content:space-between; gap: 12px; flex-wrap:wrap;
+  }
+
+  /* ---------- FADE-UP ANIMATION ---------- */
+  .fade-up{
+    opacity:0; transform: translateY(18px);
+    animation: fadeUp 1.1s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  @keyframes fadeUp{
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .d-1{ animation-delay: .25s; }
+  .d-2{ animation-delay: .55s; }
+  .d-3{ animation-delay: .85s; }
+  .d-4{ animation-delay: 1.10s; }
+  .d-5{ animation-delay: 1.30s; }
+
+  /* In-view fade for sections below the fold */
+  .reveal{ opacity:0; transform: translateY(14px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform: none; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .slide .bg, .slide.active .bg{ transition:none; transform:none !important; }
+    .fade-up, .reveal{ animation:none !important; opacity:1 !important; transform:none !important; transition:none !important; }
+    .btn.primary::after{ animation:none; display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" data-screen-label="01 Hero">
+    <div class="slides" id="slides">
+      <!-- Slides injected by JS from IMAGES[] -->
+    </div>
+    <div class="hero-grain"></div>
+
+    <header class="topbar">
+      <div class="mark">
+        <span class="dot"></span>
+        <span>Showroom &middot; Campina Grande</span>
+      </div>
+      <div class="right">Showroom</div>
+    </header>
+
+    <div class="hero-inner">
+      <div class="eyebrow fade-up d-1"><span class="ln"></span><span>Iluminação &amp; Acabamentos</span></div>
+      <h1 class="hero-title fade-up d-2">
+        Iluminação<br/>&amp; <em>Acabamentos</em>
+      </h1>
+      <p class="hero-sub fade-up d-3">
+        Iluminação, acabamentos e soluções para transformar seu ambiente.
+      </p>
+      <p class="hero-tagline fade-up d-4">
+        Um showroom pensado para revelar o melhor de cada espaço.
+      </p>
+    </div>
+
+    <div class="cue fade-up d-5"><span class="ln"></span><span>Role para ver</span></div>
+
+    <div class="pager fade-up d-5" id="pager" aria-label="Carrossel de imagens"></div>
+  </section>
+
+  <!-- ============ LINKS ============ -->
+  <section class="links-wrap reveal" data-screen-label="02 Links">
+    <div class="links-head">
+      <span class="links-eye"><span class="ln"></span>Atendimento &amp; Conteúdo<span class="ln"></span></span>
+      <h2 class="links-title">Por onde quer <em>começar</em>?</h2>
+    </div>
+
+    <div id="links"></div>
+  </section>
+
+  <!-- ============ CARDS ============ -->
+  <section class="cards-wrap reveal" data-screen-label="03 Cards">
+    <div class="cards-head">
+      <h2>Universos do <em>showroom</em></h2>
+      <span class="kicker">Selecionados pelo showroom</span>
+    </div>
+    <div class="cards-grid" id="cards"></div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-screen-label="04 Footer">
+    <div class="footer-inner">
+      <div>
+        <div class="foot-brand"><em>Iluminação</em> &amp; Acabamentos</div>
+        <div class="foot-line">Campina Grande &middot; Paraíba &middot; Brasil</div>
+      </div>
+      <div class="foot-meta">
+        <a href="INSTAGRAM_LINK" target="_blank" rel="noopener">Instagram da loja</a>
+        <a href="WHATSAPP_LINK" target="_blank" rel="noopener">Atendimento via WhatsApp</a>
+        <span>Seg a Sáb &middot; 09h–18h</span>
+      </div>
+    </div>
+    <div class="foot-rule">
+      <span>© Iluminação &amp; Acabamentos</span>
+      <span>Showroom &middot; Campina Grande / PB</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* =========================================================
+   DADOS (edite estes arrays para trocar fotos e links)
+   ========================================================= */
+
+// Fotos reais da loja. No Vite, coloque os arquivos em /public/images/
+// e mantenha os mesmos nomes; aqui basta trocar a string para a foto desejada.
+const IMAGES = [
+  // Hero carousel
+  "images/02-pendentes-vidro.jpg",
+  "images/09-pendentes-organicos.jpg",
+  "images/04-pendentes-canelados.jpg",
+  "images/07-pendentes-papel.jpg",
+  "images/03-pendentes-disco.jpg",
+  "images/10-pendentes-cilindricos.jpg"
+];
+
+const LINKS = [
+  // Botão principal — WhatsApp
+  {
+    kind: "primary",
+    label: "Fale com nossa equipe",
+    meta: "WhatsApp · Atendimento direto",
+    href: "WHATSAPP_LINK"
+  },
+  {
+    kind: "showcase",
+    label: "Conheça nosso showroom",
+    meta: "Visita presencial · Campina Grande",
+    href: "SHOWROOM_LINK"
+  },
+  {
+    label: "Ver localização da loja",
+    meta: "Google Maps",
+    href: "https://www.google.com/maps/search/?api=1&query=R.%20Paulo%20de%20Frontin%2C%20160%20-%20Centro%2C%20Campina%20Grande%20-%20PB%2C%2058400-310"
+  },
+  {
+    label: "Catálogo de produtos",
+    meta: "Coleção atual",
+    href: "CATALOGO_LINK"
+  },
+  {
+    label: "Inspirações para ambientes",
+    meta: "Projetos &amp; referências",
+    href: "INSPIRACOES_LINK"
+  },
+  {
+    label: "Atendimento para arquitetos",
+    meta: "Programa profissional",
+    href: "ARQUITETOS_LINK"
+  }
+];
+
+const SOCIAL = [
+  { label: "Instagram", href: "INSTAGRAM_LINK" }
+];
+
+const CARDS = [
+  {
+    title: "Iluminação decorativa",
+    sub: "Pendentes · Arandelas · Trilhos",
+    img: "images/05-pendente-vime.jpg"
+  },
+  {
+    title: "Acabamentos",
+    sub: "Metais · Louças · Detalhes",
+    img: "images/06-luminaria-mesh.jpg"
+  },
+  {
+    title: "Projetos &amp; ambientes",
+    sub: "Projetos realizados",
+    img: "images/01-arandelas-espelho.jpg"
+  },
+  {
+    title: "Novidades em loja",
+    sub: "Lançamentos da estação",
+    img: "images/08-luminaria-tripe.jpg"
+  }
+];
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const arrowSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>`;
+const plusSvg  = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`;
+
+/* Hero slides */
+const slidesEl = document.getElementById("slides");
+const pagerEl  = document.getElementById("pager");
+IMAGES.forEach((src, i) => {
+  const s = document.createElement("div");
+  s.className = "slide" + (i === 0 ? " active" : "");
+  s.innerHTML = `<div class="bg" style="background-image:url('${src}')"></div>`;
+  slidesEl.appendChild(s);
+
+  const b = document.createElement("button");
+  b.setAttribute("aria-label", `Imagem ${i+1}`);
+  if (i === 0) b.setAttribute("aria-current", "true");
+  b.innerHTML = `<span class="bar"></span>`;
+  b.addEventListener("click", () => goTo(i));
+  pagerEl.appendChild(b);
+});
+
+let current = 0;
+function goTo(i){
+  const slides = slidesEl.children;
+  const dots   = pagerEl.children;
+  slides[current].classList.remove("active");
+  dots[current].removeAttribute("aria-current");
+  current = (i + slides.length) % slides.length;
+  slides[current].classList.add("active");
+  dots[current].setAttribute("aria-current", "true");
+}
+setInterval(() => goTo(current + 1), 6200);
+
+/* Buttons */
+const linksEl = document.getElementById("links");
+LINKS.forEach((b, idx) => {
+  const cls = ["btn", b.kind || ""].filter(Boolean).join(" ");
+  const titleEl = b.kind === "primary"
+    ? `<span class="title-line">${b.label}</span>`
+    : `<span>${b.label}</span>`;
+  const html = `
+    <a class="${cls}" href="${b.href}" target="_blank" rel="noopener">
+      <span class="label">
+        ${titleEl}
+        <span class="meta">${b.meta}</span>
+      </span>
+      <span class="arrow">${arrowSvg}</span>
+    </a>`;
+  linksEl.insertAdjacentHTML("beforeend", html);
+});
+
+/* Social — single full-width button (Instagram only) */
+SOCIAL.forEach(s => {
+  linksEl.insertAdjacentHTML("beforeend", `
+    <a class="btn" href="${s.href}" target="_blank" rel="noopener">
+      <span class="label"><span>${s.label}</span></span>
+      <span class="arrow">${arrowSvg}</span>
+    </a>`);
+});
+
+/* Cards */
+const cardsEl = document.getElementById("cards");
+CARDS.forEach((c, i) => {
+  const num = String(i+1).padStart(2, "0");
+  cardsEl.insertAdjacentHTML("beforeend", `
+    <a class="card" href="#">
+      <div class="img" style="background-image:url('${c.img}')"></div>
+      <div class="card-body">
+        <div>
+          <div class="num">${num} —</div>
+          <h3>${c.title}</h3>
+          <div class="sub">${c.sub}</div>
+        </div>
+        <div class="pluson">${plusSvg}</div>
+      </div>
+    </a>
+  `);
+});
+
+/* Reveal on scroll */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+}, { threshold: 0.08 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

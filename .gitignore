@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+react-app/node_modules/
+
+# Build output
+dist/
+react-app/dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.production
+.env*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
