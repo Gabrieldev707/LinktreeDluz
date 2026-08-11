@@ -1,7 +1,8 @@
 const PLACEHOLDERS = {
   WHATSAPP_CONSULTOR_01: 'https://wa.me/5583993718424',
-  WHATSAPP_CONSULTOR_02: 'https://wa.me/5583974004993',
+  WHATSAPP_CONSULTOR_02: 'https://wa.me/5583993770156',
   WHATSAPP_CONSULTOR_03: 'https://wa.me/5583999428275',
+  WHATSAPP_CONSULTOR_04: 'https://wa.me/5583991106981',
   WHATSAPP_DONA: 'https://wa.me/5583993667767',
   WHATSAPP_DONO: 'https://wa.me/5583993783504',
   WHATSAPP_ARQUITETOS: 'https://wa.me/55XXXXXXXXXXX',
@@ -88,6 +89,11 @@ export const CONTACTS_COMERCIAL = [
     name: 'Consultora Nicolly',
     role: 'Projetos e orçamentos',
     href: wa(PLACEHOLDERS.WHATSAPP_CONSULTOR_03, MSG.consultor),
+  },
+  {
+    name: 'Consultor Kelvi',
+    role: 'Atendimento comercial',
+    href: wa(PLACEHOLDERS.WHATSAPP_CONSULTOR_04, MSG.consultor),
   },
 ];
 
